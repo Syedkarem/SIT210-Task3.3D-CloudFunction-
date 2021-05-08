@@ -1,0 +1,50 @@
+int redled = D1;
+int yellowled = D2;
+
+void setup() {
+    pinMode(redled, OUTPUT);
+    pinMode(yellowled, OUTPUT);
+    Particle.subscribe("Deakin_RIOT_SIT210_Photon_Buddy", myHandler);
+}
+
+void loop(){
+    Particle.publish("Deakin_RIOT_SIT210_Photon_Buddy", "pat");
+    delay(5000);
+    Particle.publish("Deakin_RIOT_SIT210_Photon_Buddy", "wave");
+    delay(5000);
+}
+
+void myHandler(const char *event, const char *data)
+{
+    if(strcmp(data, "pat")==0){
+        Particle.publish(String::format(event));
+        digitalWrite(yellowled,HIGH);
+        delay(500);
+        digitalWrite(yellowled,LOW);
+        delay(500);
+        digitalWrite(yellowled,HIGH);
+        delay(500);
+        digitalWrite(yellowled,LOW);
+        delay(500);
+        digitalWrite(yellowled,HIGH);
+        delay(500);
+        digitalWrite(yellowled,LOW);
+        delay(500);
+    }
+    else if (strcmp(data, "wave")==0){
+        Particle.publish(String::format(event));
+        digitalWrite(redled,HIGH);
+        delay(1000);
+        digitalWrite(redled,LOW);
+        delay(1000);
+        digitalWrite(redled,HIGH);
+        delay(1000);
+        digitalWrite(redled,LOW);
+        delay(1000);
+        digitalWrite(redled,HIGH);
+        delay(1000);
+        digitalWrite(redled,LOW);
+        delay(1000);
+    }
+}
+
